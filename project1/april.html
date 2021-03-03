@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> testing1</title>
+        <script>
+        class Element {
+            constructor(id, name) {
+              this.name = name;
+              this.id = id;
+              this.classname = classname;
+              this.value = value;
+          }
+           get getId(){
+                   return this.id;
+            }
+           set setid(x){
+                 this.id=x;
+            }
+           get getName(){
+               return this.name;
+            }
+           set setName(y){
+               this.name=y;
+            }
+          }
+          let myElement = new Element(cp,button);
+          
+          document.getElementById("demo").innerHTML = myElement.setName;
+        </script>
+    </head>
+    <body>
+        <p id="demo">testing 12334 </p>
+    </body>
+</html>
