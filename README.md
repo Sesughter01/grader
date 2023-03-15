@@ -1,1 +1,0 @@
-This is a web application that managers church organization financial contributions
