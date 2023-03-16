@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 01:22 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: Mar 16, 2023 at 09:44 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `osrs_db`
+-- Database: `grader_data`
 --
 
 -- --------------------------------------------------------
@@ -27,24 +27,24 @@ SET time_zone = "+00:00";
 -- Table structure for table `classes`
 --
 
-CREATE TABLE `classes` (
-  `id` int(30) NOT NULL,
-  `level` varchar(200) NOT NULL,
-  `section` varchar(200) NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- CREATE TABLE `classes` (
+--   `id` int(30) NOT NULL,
+--   `level` varchar(200) NOT NULL,
+--   `section` varchar(200) NOT NULL,
+--   `date_created` datetime NOT NULL DEFAULT current_timestamp()
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `classes`
 --
 
-INSERT INTO `classes` (`id`, `level`, `section`, `date_created`) VALUES
-(1, 'First', 'A', '2020-11-21 13:38:56'),
-(2, 'First', 'B', '2020-11-21 13:39:21'),
-(3, 'Second', 'A', '2020-11-21 13:43:11'),
-(4, 'Second', 'B', '2020-11-21 13:46:24'),
-(5, 'Third', 'A', '2020-11-21 13:46:33'),
-(6, 'Fourth', 'A', '2020-11-21 13:46:46');
+-- INSERT INTO `classes` (`id`, `level`, `section`, `date_created`) VALUES
+-- (1, 'First', 'A', '2020-11-21 13:38:56'),
+-- (2, 'First', 'B', '2020-11-21 13:39:21'),
+-- (3, 'Second', 'A', '2020-11-21 13:43:11'),
+-- (4, 'Second', 'B', '2020-11-21 13:46:24'),
+-- (5, 'Third', 'A', '2020-11-21 13:46:33'),
+-- (6, 'Fourth', 'A', '2020-11-21 13:46:46');
 
 -- --------------------------------------------------------
 
@@ -55,8 +55,9 @@ INSERT INTO `classes` (`id`, `level`, `section`, `date_created`) VALUES
 CREATE TABLE `results` (
   `id` int(30) NOT NULL,
   `student_id` int(30) NOT NULL,
-  `marks_percentage` varchar(5) NOT NULL,
-  `class_id` int(30) NOT NULL,
+  `marks` decimal(20,2) NOT NULL,
+  `grade` varchar(1) NOT NULL,
+  `credits` int(10) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -65,7 +66,7 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `student_id`, `marks_percentage`, `class_id`, `date_created`) VALUES
-(1, 1, '87.67', 1, '2020-11-21 16:57:05'),
+(1, 1, 87.67, 1, '2020-11-21 16:57:05'),
 (2, 2, '90.33', 1, '2020-11-25 16:45:52');
 
 -- --------------------------------------------------------
