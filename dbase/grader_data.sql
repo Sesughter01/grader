@@ -23,30 +23,9 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `classes`
---
 
--- CREATE TABLE `classes` (
---   `id` int(30) NOT NULL,
---   `level` varchar(200) NOT NULL,
---   `section` varchar(200) NOT NULL,
---   `date_created` datetime NOT NULL DEFAULT current_timestamp()
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `classes`
---
 
--- INSERT INTO `classes` (`id`, `level`, `section`, `date_created`) VALUES
--- (1, 'First', 'A', '2020-11-21 13:38:56'),
--- (2, 'First', 'B', '2020-11-21 13:39:21'),
--- (3, 'Second', 'A', '2020-11-21 13:43:11'),
--- (4, 'Second', 'B', '2020-11-21 13:46:24'),
--- (5, 'Third', 'A', '2020-11-21 13:46:33'),
--- (6, 'Fourth', 'A', '2020-11-21 13:46:46');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `results`
@@ -56,8 +35,6 @@ CREATE TABLE `results` (
   `id` int(30) NOT NULL,
   `student_id` int(30) NOT NULL,
   `marks` decimal(20,2) NOT NULL,
-  `grade` varchar(1) NOT NULL,
-  `credits` int(10) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -65,9 +42,9 @@ CREATE TABLE `results` (
 -- Dumping data for table `results`
 --
 
-INSERT INTO `results` (`id`, `student_id`, `marks_percentage`, `class_id`, `date_created`) VALUES
-(1, 1, 87.67, 1, '2020-11-21 16:57:05'),
-(2, 2, '90.33', 1, '2020-11-25 16:45:52');
+INSERT INTO `results` (`id`, `student_id`, `marks`, `date_created`) VALUES
+(1, 1, 87.67,'2020-11-21 16:57:05'),
+(2, 2, 90.33,'2020-11-25 16:45:52');
 
 -- --------------------------------------------------------
 
@@ -78,8 +55,10 @@ INSERT INTO `results` (`id`, `student_id`, `marks_percentage`, `class_id`, `date
 CREATE TABLE `result_items` (
   `id` int(30) NOT NULL,
   `result_id` int(30) NOT NULL,
-  `subject_id` int(30) NOT NULL,
+  `module_id` int(30) NOT NULL,
   `mark` float NOT NULL,
+  `grade` varchar(1) NOT NULL,
+  `credits` int(10) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -87,8 +66,8 @@ CREATE TABLE `result_items` (
 -- Dumping data for table `result_items`
 --
 
-INSERT INTO `result_items` (`id`, `result_id`, `subject_id`, `mark`, `date_created`) VALUES
-(1, 1, 2, 88, '2020-11-21 16:57:05'),
+INSERT INTO `result_items` (`id`, `result_id`, `module_id`, `mark`, `grade`,`credits` ,`date_created`) VALUES
+(1, 1, 2, 88,'A',, '2020-11-21 16:57:05'),
 (2, 1, 1, 85, '2020-11-21 16:57:05'),
 (3, 1, 3, 90, '2020-11-21 16:57:05'),
 (4, 2, 2, 90, '2020-11-25 16:45:52'),
@@ -107,9 +86,6 @@ CREATE TABLE `students` (
   `firstname` varchar(200) NOT NULL,
   `middlename` varchar(200) NOT NULL,
   `lastname` varchar(200) NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `address` text NOT NULL,
-  `class_id` int(30) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -117,54 +93,58 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `student_code`, `firstname`, `middlename`, `lastname`, `gender`, `address`, `class_id`, `date_created`) VALUES
-(1, '62314', 'John', 'D', 'Smith', 'Female', 'Sample Address', 2, '2020-11-21 14:29:03'),
-(2, '1415', 'Claire', 'G', 'Blake', 'Female', 'Sample Address', 1, '2020-11-25 16:45:05');
+INSERT INTO `students` (`id`, `student_code`, `firstname`, `middlename`, `lastname`, `date_created`) VALUES
+(1, 'msc701', 'Otesiri', 'O', 'Okposio', '2020-11-21 14:29:03'),
+(2, 'msc712', 'GoodChild', 'K', 'Trent',   '2020-11-25 16:45:05');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subjects`
+-- Table structure for table `modules`
 --
 
-CREATE TABLE `subjects` (
+CREATE TABLE `modules` (
   `id` int(30) NOT NULL,
-  `subject_code` varchar(50) NOT NULL,
-  `subject` varchar(200) NOT NULL,
+  `module_code` varchar(50) NOT NULL,
+  `module` varchar(200) NOT NULL,
   `description` text NOT NULL,
+  `credits` int(50) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `subjects`
+-- Dumping data for table `modules`
 --
 
-INSERT INTO `subjects` (`id`, `subject_code`, `subject`, `description`, `date_created`) VALUES
-(1, '1101', 'Math', 'Mathematics', '2020-11-21 15:43:25'),
-(2, '1102', 'English', 'History', '2020-11-21 15:46:30'),
-(3, '1103', 'Science', 'Science', '2020-11-21 15:46:49');
+INSERT INTO `modules` (`id`, `module_code`, `module`, `description`,`credits`,`date_created`) VALUES
+(1, '7001', 'COMP', 'Object-Oriented Programming',20 ,'2023-03-16 11:43:25'),
+(2, '7002', 'COMP', 'Modern Computer Systems',20 ,'2023-03-16 11:46:30'),
+(3, '7005', 'TECH', 'Research,Scholarship and Professional Skills',20, '2023-03-16 11:46:49');
+(4, '7002', 'DALT', 'Data Science Foundations',10, '2023-03-16 11:48:20');
+(5, '7011', 'DALT', 'Introduction To Machine Learning',10, '2023-03-16 11:48:39');
+(6, '7003', 'SOFT', 'Advanced Software Development',20, '2023-03-16 11:48:40');
+(7, '7004', 'TECH', 'Cyber Security and the Web',20, '2023-03-16 11:50:10');
+(8, '7009', 'TECH', 'MSc Dissertation in Computing Subjects',60, '2023-03-16 11:50:20');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `system_settings`
+-- Table structure for table `my_settings`
 --
 
-CREATE TABLE `system_settings` (
+CREATE TABLE `my_settings` (
   `id` int(30) NOT NULL,
   `name` text NOT NULL,
   `email` varchar(200) NOT NULL,
-  `contact` varchar(20) NOT NULL,
-  `address` text NOT NULL,
   `cover_img` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `system_settings`
+-- Dumping data for table `my_settings`
 --
 
-INSERT INTO `system_settings` (`id`, `name`, `email`, `contact`, `address`, `cover_img`) VALUES
-(1, 'Online Student Result System', 'info@sample.comm', '+6948 8542 623', '2102  Caldwell Road, Rochester, New York, 14608', '1605927480_download.jpg');
+INSERT INTO `my_settings` (`id`, `name`, `email`, `cover_img`) VALUES
+(1, 'Online  Student Result System', 'Otesiri@sample.comm', '+6948 8542 623', '2102  Caldwell Road, Rochester, New York, 14608', '1605927480_download.jpg');
 
 -- --------------------------------------------------------
 
