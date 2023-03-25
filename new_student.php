@@ -34,33 +34,9 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <label for="" class="control-label">Gender</label>
-              <select name="gender" id="" class="custom-select custom-select-sm" required>
-                <option>Female</option>
-                <option>Male</option>
-              </select>
-            </div>
-            <div class="form-group text-dark">
-              <div class="form-group">
-                <label for="" class="control-label">Address</label>
-                <textarea name="address" id="address" cols="30" rows="4" class="form-control"><?php echo isset($address) ? $address : '' ?></textarea>
-              </div>
-            </div>
-            <div class="form-group text-dark">
-              <div class="form-group">
-                <label for="" class="control-label">Class</label>
-                <select name="class_id" id="" class="form-control select2 select2-sm" required>
-                  <option></option> 
-                  <?php 
-                        $classes = $conn->query("SELECT * FROM classes order by level asc,section asc ");
-                        while($row = $classes->fetch_array()):
-                  ?>
-                        <option value="<?php echo $row['id'] ?>" <?php echo isset($class_id) && $class_id == $row['id'] ? "selected" : '' ?>><?php echo ucwords($row['level'].'-'.$row['section']) ?></option>
-                  <?php endwhile; ?>
-                </select>
-              </div>
-            </div>
+            
+            
+            
           </div>
         </div>
       </form>

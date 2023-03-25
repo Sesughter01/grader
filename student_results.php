@@ -9,7 +9,7 @@
     ob_start();
   if(!isset($_SESSION['system'])){
 
-    $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
+    $system = $conn->query("SELECT * FROM my_settings")->fetch_array();
     foreach($system as $k => $v){
       $_SESSION['system'][$k] = $v;
     }
@@ -106,8 +106,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer" style="position: static !important;">
-    <strong>Copyright &copy; 2020 <a href="https://www.sourcecodester.com/">sourcecodester.com</a>.</strong>
-    All rights reserved.
+   
     <div class="float-right d-none d-sm-inline-block">
       <b><?php echo $_SESSION['system']['name'] ?></b>
     </div>

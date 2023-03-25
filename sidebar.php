@@ -28,19 +28,12 @@
               </p>
             </a>
           </li>   
+         
           <li class="nav-item dropdown">
-            <a href="./index.php?page=classes" class="nav-link nav-classes">
-              <i class="nav-icon fas fa-th-list"></i>
-              <p>
-                Classes
-              </p>
-            </a>
-          </li>    
-          <li class="nav-item dropdown">
-            <a href="./index.php?page=subjects" class="nav-link nav-subjects">
+            <a href="./index.php?page=modules" class="nav-link nav-subjects">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Subjects
+                Modules
               </p>
             </a>
           </li>   

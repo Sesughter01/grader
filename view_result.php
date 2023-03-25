@@ -1,6 +1,6 @@
 <?php
 include 'db_connect.php';
-$qry = $conn->query("SELECT r.*,concat(s.firstname,' ',s.middlename,' ',s.lastname) as name,s.student_code,concat(c.level,'-',c.section) as class,s.gender FROM results r inner join classes c on c.id = r.class_id inner join students s on s.id = r.student_id where r.id = ".$_GET['id'])->fetch_array();
+$qry = $conn->query("SELECT r.*,concat(s.firstname,' ',s.middlename,' ',s.lastname) as name,s.student_code FROM results r inner join  students s on s.id = r.student_id where r.id = ".$_GET['id'])->fetch_array();
 foreach($qry as $k => $v){
 	$$k = $v;
 }
@@ -9,38 +9,46 @@ foreach($qry as $k => $v){
 	<table width="100%">
 		<tr>
 			<td width="50%">Student ID #: <b><?php echo $student_code ?></b></td>
-			<td width="50%">Class: <b><?php echo $class ?></b></td>
+			
 		</tr>
 		<tr>
 			<td width="50%">Student Name: <b><?php echo ucwords($name) ?></b></td>
-			<td width="50%">Gender: <b><?php echo ucwords($gender) ?></b></td>
+			
 		</tr>
 	</table>
 	<hr>
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Subject Code</th>
-				<th>Subject</th>
+				<th>Module Code</th>
+				<th>Module</th>
 				<th>Mark</th>
+				<th>Grade</th>
+				<th>C.U.E</th>
+				<th>C.Load</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php 
-    			$items=$conn->query("SELECT r.*,s.subject_code,s.subject FROM result_items r inner join subjects s on s.id = r.subject_id where result_id = $id  order by s.subject_code asc");
+    			$items=$conn->query("SELECT r.*,m.module_code,m.module FROM result_items r inner join modules m on m.id = r.module_id where result_id = $id  order by m.module_code asc");
     			while($row = $items->fetch_assoc()):
     		?>
     		<tr>
-    			<td><?php echo $row['subject_code'] ?></td>
-    			<td><?php echo ucwords($row['subject']) ?></td>
+    			<td><?php echo $row['module_code'] ?></td>
+    			<td><?php echo ucwords($row['module']) ?></td>
     			<td class="text-center"><?php echo number_format($row['mark']) ?></td>
+    			<td><?php echo ucwords($row['grade']) ?></td>
+    			<td><?php echo ucwords($row['c_u_e']) ?></td>
+    			<td><?php echo ucwords($row['c_load']) ?></td>
+    			<td><?php echo ucwords($row['status']) ?></td>
     		</tr>
 			<?php endwhile; ?>
 		</tbody>
 		<tfoot>
 			<tr>
 				<th colspan="2">Average</th>
-				<th class="text-center"><?php  echo number_format($marks_percentage,2) ?></th>
+				<th class="text-center"><?php  echo number_format($marks,2) ?></th>
 			</tr>
 		</tfoot>
 	</table>

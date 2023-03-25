@@ -1,4 +1,42 @@
-<?php
+
+<!-- <//?php
+ob_start();
+$action = $_GET['action'];
+include 'admin_class.php';
+$crud = new Action();
+if($action == 'login'){
+	$login = $crud->login();
+	if($login)
+		echo $login;
+}
+?>
+<table>
+<//?php 
+
+    foreach ($_POST as $key => $value) {
+        echo "<tr>";
+        echo "<td>";
+        echo $key;
+        echo "</td>";
+        echo "<td>";
+        echo $value;
+        echo "</td>";
+        echo "</tr>";
+    }
+	
+	ob_end_flush();
+	
+?>
+</table>
+
+<//?php exit(); ?> -->
+
+  
+
+<?php 
+  
+
+
 ob_start();
 date_default_timezone_set("Asia/Manila");
 
@@ -46,23 +84,14 @@ if($action == 'delete_user'){
 	if($save)
 		echo $save;
 }
-if($action == 'save_class'){
-	$save = $crud->save_class();
+
+if($action == 'save_module'){
+	$save = $crud->save_module();
 	if($save)
 		echo $save;
 }
-if($action == 'delete_class'){
-	$save = $crud->delete_class();
-	if($save)
-		echo $save;
-}
-if($action == 'save_subject'){
-	$save = $crud->save_subject();
-	if($save)
-		echo $save;
-}
-if($action == 'delete_subject'){
-	$save = $crud->delete_subject();
+if($action == 'delete_module'){
+	$save = $crud->delete_module();
 	if($save)
 		echo $save;
 }

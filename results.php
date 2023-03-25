@@ -1,7 +1,8 @@
 <?php include'db_connect.php' ?>
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
-		<?php	if(!isset($_SESSION['rs_id'])): ?>
+		<!-- ONLY ADMINS CAN ADD NEW RESULTS IN THIS VERSION -->
+		<?php	if(!isset($_SESSION['rs_id'])): ?> 
 		<div class="card-header">
 			<div class="card-tools">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_result"><i class="fa fa-plus"></i> Add New</a>
@@ -11,7 +12,7 @@
 		<div class="card-body">
 			<table class="table tabe-hover table-bordered" id="list">
 				<colgroup>
-					<col width="5%">
+				<col width="5%">
 					<col width="15%">
 					<col width="25%">
 					<col width="20%">
@@ -23,8 +24,14 @@
 						<th class="text-center">#</th>
 						<th>Student Code</th>
 						<th>Student Name</th>
-						<th>Class</th>
-						<th>Subjects</th>
+						
+						<th>Module</th>
+						<!-- <th>Mark</th>
+						<th>Grade</th>
+						<th>C.U.E</th>
+						<th>C.Load</th>
+						<th>Status</th> -->
+
 						<th>Average</th>
 						<th>Action</th>
 					</tr>
@@ -33,20 +40,23 @@
 					<?php
 					$i = 1;
 					$where = "";
+					// IF A STUDENT LOGS IN
 					if(isset($_SESSION['rs_id'])){
 						$where = " where r.student_id = {$_SESSION['rs_id']} ";
 					}
-					$qry = $conn->query("SELECT r.*,concat(s.firstname,' ',s.middlename,' ',s.lastname) as name,s.student_code,concat(c.level,'-',c.section) as class FROM results r inner join classes c on c.id = r.class_id inner join students s on s.id = r.student_id $where order by unix_timestamp(r.date_created) desc ");
+					// FETCH ALL THE STUDENTS RESULTS
+					$qry = $conn->query("SELECT r.*,concat(s.firstname,' ',s.middlename,' ',s.lastname) as name,s.student_code FROM results r  inner join students s on s.id = r.student_id $where order by unix_timestamp(r.date_created) desc ");
+					// GET MODULES OF STUDENTS WITH RESULTS
 					while($row= $qry->fetch_assoc()):
-						$subjects = $conn->query("SELECT * FROM result_items where result_id =".$row['id'])->num_rows;
+						$modules = $conn->query("SELECT * FROM result_items where result_id =".$row['id'])->num_rows;
 					?>
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th>
 						<td><b><?php echo $row['student_code'] ?></b></td>
 						<td><b><?php echo ucwords($row['name']) ?></b></td>
-						<td><b><?php echo ucwords($row['class']) ?></b></td>
-						<td class="text-center"><b><?php echo $subjects ?></b></td>
-						<td class="text-center"><b><?php echo $row['marks_percentage'] ?></b></td>
+						
+						<td class="text-center"><b><?php echo $modules ?></b></td>
+						<td class="text-center"><b><?php echo $row['marks'] ?></b></td>
 						<td class="text-center">
 							<?php if(isset($_SESSION['login_id'])): ?>
 		                    <div class="btn-group">

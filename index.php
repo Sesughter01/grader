@@ -8,7 +8,7 @@
     ob_start();
   if(!isset($_SESSION['system'])){
 
-    $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
+    $system = $conn->query("SELECT * FROM my_settings")->fetch_array();
     foreach($system as $k => $v){
       $_SESSION['system'][$k] = $v;
     }
@@ -104,7 +104,7 @@
         </div>
      </div>
     <div class="modal fade" id="viewer_modal" role='dialog'>
-        <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-md" role="document">
           <div class="modal-content">
                   <button type="button" class="btn-close" data-dismiss="modal"><span class="fa fa-times"></span></button>
                   <img src="" alt="">
@@ -122,7 +122,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>1 source code <a href="https://1sourcecodr.blogspot.com/">Link</a>.</strong>
+    
    
     <div class="float-right d-none d-sm-inline-block">
       <b><?php echo $_SESSION['system']['name'] ?></b>

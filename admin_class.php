@@ -17,7 +17,7 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where username = '".$username."' and password = '".md5($password)."' and type= 1 ");
+			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where username = '".$username."' and password = '".md5($password)."' and user_type= 1 ");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
@@ -181,7 +181,7 @@ Class Action {
 		if($delete)
 			return 1;
 	}
-	function save_system_settings(){
+	function save_my_settings(){
 		extract($_POST);
 		$data = '';
 		foreach($_POST as $k => $v){
@@ -199,11 +199,11 @@ Class Action {
 			$data .= ", cover_img = '$fname' ";
 
 		}
-		$chk = $this->db->query("SELECT * FROM system_settings");
+		$chk = $this->db->query("SELECT * FROM my_settings");
 		if($chk->num_rows > 0){
-			$save = $this->db->query("UPDATE system_settings set $data where id =".$chk->fetch_array()['id']);
+			$save = $this->db->query("UPDATE my_settings set $data where id =".$chk->fetch_array()['id']);
 		}else{
-			$save = $this->db->query("INSERT INTO system_settings set $data");
+			$save = $this->db->query("INSERT INTO my_settings set $data");
 		}
 		if($save){
 			foreach($_POST as $k => $v){
@@ -231,7 +231,8 @@ Class Action {
 			}
 		}
 	}
-	function save_class(){
+	
+	function save_module(){
 		extract($_POST);
 		$data = "";
 		foreach($_POST as $k => $v){
@@ -243,56 +244,23 @@ Class Action {
 				}
 			}
 		}
-		$chk = $this->db->query("SELECT * FROM classes where level ='$level' and section = '$section' and id != '$id' ");
+		$chk = $this->db->query("SELECT * FROM modules where module_code ='$module_code' and id != '$id' ");
 		if($chk->num_rows > 0){
 			return 2;
 			exit;
 		}
 		if(empty($id)){
-			$save = $this->db->query("INSERT INTO classes set $data");
+			$save = $this->db->query("INSERT INTO modules set $data");
 		}else{
-			$save = $this->db->query("UPDATE classes set $data where id = $id");
+			$save = $this->db->query("UPDATE modules set $data where id = $id");
 		}
 		if($save){
 			return 1;
 		}
 	}
-	function delete_class(){
+	function delete_module(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM classes where id = $id");
-		if($delete){
-			return 1;
-		}
-	}
-	function save_subject(){
-		extract($_POST);
-		$data = "";
-		foreach($_POST as $k => $v){
-			if(!in_array($k, array('id')) && !is_numeric($k)){
-				if(empty($data)){
-					$data .= " $k='$v' ";
-				}else{
-					$data .= ", $k='$v' ";
-				}
-			}
-		}
-		$chk = $this->db->query("SELECT * FROM subjects where subject_code ='$subject_code' and id != '$id' ");
-		if($chk->num_rows > 0){
-			return 2;
-			exit;
-		}
-		if(empty($id)){
-			$save = $this->db->query("INSERT INTO subjects set $data");
-		}else{
-			$save = $this->db->query("UPDATE subjects set $data where id = $id");
-		}
-		if($save){
-			return 1;
-		}
-	}
-	function delete_subject(){
-		extract($_POST);
-		$delete = $this->db->query("DELETE FROM subjects where id = $id");
+		$delete = $this->db->query("DELETE FROM modules where id = $id");
 		if($delete){
 			return 1;
 		}
@@ -337,7 +305,7 @@ Class Action {
 		extract($_POST);
 		$data = "";
 		foreach($_POST as $k => $v){
-			if(!in_array($k, array('id','mark','subject_id')) && !is_numeric($k)){
+			if(!in_array($k, array('id','mark','module_id')) && !is_numeric($k)){
 				if(empty($data)){
 					$data .= " $k='$v' ";
 				}else{
@@ -345,7 +313,7 @@ Class Action {
 				}
 			}
 		}
-		$chk = $this->db->query("SELECT * FROM results where student_id ='$student_id' and class_id='$class_id' and id != '$id' ");
+		$chk = $this->db->query("SELECT * FROM results where student_id ='$student_id' and id != '$id' ");
 		if($chk->num_rows > 0){
 			return 2;
 			exit;
@@ -358,9 +326,9 @@ Class Action {
 		if($save){
 				$id = empty($id) ? $this->db->insert_id : $id;
 				$this->db->query("DELETE FROM result_items where result_id = $id");
-				foreach($subject_id as $k => $v){
+				foreach($module_id as $k => $v){
 					$data= " result_id = $id ";
-					$data.= ", subject_id = $v ";
+					$data.= ", module_id = $v ";
 					$data.= ", mark = '{$mark[$k]}' ";
 					$this->db->query("INSERT INTO result_items set $data");
 				}

@@ -20,21 +20,21 @@
 						<th class="text-center">#</th>
 						<th>Student ID</th>
 						<th>Name</th>
-						<th>Class</th>
+						
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$i = 1;
-					$qry = $conn->query("SELECT s.*,concat(c.level,'-',c.section) as class,concat(firstname,' ',middlename,' ',lastname) as name FROM students s inner join classes c on c.id = s.class_id order by concat(firstname,' ',middlename,' ',lastname) asc  ");
+					$qry = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s  order by concat(firstname,' ',middlename,' ',lastname) asc  ");
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
 						<td class="text-center"><?php echo $i++ ?></td>
 						<td class=""><b><?php echo $row['student_code'] ?></b></td>
 						<td><b><?php echo ucwords($row['name']) ?></b></td>
-						<td><b><?php echo ucwords($row['class']) ?></b></td>
+						
 						<td class="text-center">
 		                    <div class="btn-group">
 		                        <a href="index.php?page=edit_student&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">

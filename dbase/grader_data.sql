@@ -43,8 +43,8 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `student_id`, `marks`, `date_created`) VALUES
-(1, 1, 87.67,'2020-11-21 16:57:05'),
-(2, 2, 90.33,'2020-11-25 16:45:52');
+(1, 1, 88,'2020-11-21 16:57:05'),
+(2, 2, 90,'2020-11-25 16:45:52');
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,9 @@ CREATE TABLE `result_items` (
   `module_id` int(30) NOT NULL,
   `mark` float NOT NULL,
   `grade` varchar(1) NOT NULL,
-  `credits` int(10) NOT NULL,
+  `c_u_e` int(10) NOT NULL,
+  `c_load` int(10) NOT NULL,
+  `status` text NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -66,13 +68,13 @@ CREATE TABLE `result_items` (
 -- Dumping data for table `result_items`
 --
 
-INSERT INTO `result_items` (`id`, `result_id`, `module_id`, `mark`, `grade`,`credits` ,`date_created`) VALUES
-(1, 1, 2, 88,'A',, '2020-11-21 16:57:05'),
-(2, 1, 1, 85, '2020-11-21 16:57:05'),
-(3, 1, 3, 90, '2020-11-21 16:57:05'),
-(4, 2, 2, 90, '2020-11-25 16:45:52'),
-(5, 2, 1, 88, '2020-11-25 16:45:52'),
-(6, 2, 3, 93, '2020-11-25 16:45:52');
+INSERT INTO `result_items` (`id`, `result_id`, `module_id`, `mark`, `grade`,`c_u_e`,`c_load`,`status` ,`date_created`) VALUES
+(1, 1, 2, 88,'A',20,20,'passed', '2020-11-21 16:57:05'),
+(2, 1, 1, 65,'B',20,20,'passed' ,'2020-11-21 16:57:05'),
+(3, 1, 3, 90,'A',20,20,'passed','2020-11-21 16:57:05'),
+(4, 2, 2, 90,'A',20,20,'passed', '2020-11-25 16:45:52'),
+(5, 2, 1, 88,'A',20,20,'passed', '2020-11-25 16:45:52'),
+(6, 2, 3, 45,'F',0,20,'failed', '2020-11-25 16:45:52');
 
 -- --------------------------------------------------------
 
@@ -119,11 +121,11 @@ CREATE TABLE `modules` (
 INSERT INTO `modules` (`id`, `module_code`, `module`, `description`,`credits`,`date_created`) VALUES
 (1, '7001', 'COMP', 'Object-Oriented Programming',20 ,'2023-03-16 11:43:25'),
 (2, '7002', 'COMP', 'Modern Computer Systems',20 ,'2023-03-16 11:46:30'),
-(3, '7005', 'TECH', 'Research,Scholarship and Professional Skills',20, '2023-03-16 11:46:49');
-(4, '7002', 'DALT', 'Data Science Foundations',10, '2023-03-16 11:48:20');
-(5, '7011', 'DALT', 'Introduction To Machine Learning',10, '2023-03-16 11:48:39');
-(6, '7003', 'SOFT', 'Advanced Software Development',20, '2023-03-16 11:48:40');
-(7, '7004', 'TECH', 'Cyber Security and the Web',20, '2023-03-16 11:50:10');
+(3, '7005', 'TECH', 'Research,Scholarship and Professional Skills',20, '2023-03-16 11:46:49'),
+(4, '7002', 'DALT', 'Data Science Foundations',10, '2023-03-16 11:48:20'),
+(5, '7011', 'DALT', 'Introduction To Machine Learning',10, '2023-03-16 11:48:39'),
+(6, '7003', 'SOFT', 'Advanced Software Development',20, '2023-03-16 11:48:40'),
+(7, '7004', 'TECH', 'Cyber Security and the Web',20, '2023-03-16 11:50:10'),
 (8, '7009', 'TECH', 'MSc Dissertation in Computing Subjects',60, '2023-03-16 11:50:20');
 
 -- --------------------------------------------------------
@@ -144,7 +146,7 @@ CREATE TABLE `my_settings` (
 --
 
 INSERT INTO `my_settings` (`id`, `name`, `email`, `cover_img`) VALUES
-(1, 'Online  Student Result System', 'Otesiri@sample.comm', '+6948 8542 623', '2102  Caldwell Road, Rochester, New York, 14608', '1605927480_download.jpg');
+(1, 'MSc Computer Science Grading System', 'otesiri@sample.comm', '1605927120_avatar.jpg');
 
 -- --------------------------------------------------------
 
@@ -157,8 +159,9 @@ CREATE TABLE `users` (
   `firstname` varchar(200) NOT NULL,
   `lastname` varchar(200) NOT NULL,
   `username` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
   `password` text NOT NULL,
-  `type` int(1) NOT NULL DEFAULT 1,
+  `user_type` int(1) NOT NULL DEFAULT 1,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -166,18 +169,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `type`, `date_created`) VALUES
-(1, 'Administrator', '', 'admin', '0192023a7bbd73250516f069df18b500', 1, '2020-11-20 13:25:41');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`,`email`, `password`, `user_type`, `date_created`) VALUES
+(1, 'Otesiri', 'Okposio', 'adm','otesiri@sample.comm', '0192023a7bbd73250516f069df18b500', 1, '2020-11-20 13:25:41');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `classes`
---
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `results`
@@ -200,13 +197,13 @@ ALTER TABLE `students`
 --
 -- Indexes for table `subjects`
 --
-ALTER TABLE `subjects`
+ALTER TABLE `modules`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `system_settings`
+-- Indexes for table `my_settings`
 --
-ALTER TABLE `system_settings`
+ALTER TABLE `my_settings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -218,12 +215,6 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `results`
@@ -244,15 +235,15 @@ ALTER TABLE `students`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `subjects`
+-- AUTO_INCREMENT for table `modules`
 --
-ALTER TABLE `subjects`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `modules`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `system_settings`
+-- AUTO_INCREMENT for table `my_settings`
 --
-ALTER TABLE `system_settings`
+ALTER TABLE `my_settings`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --

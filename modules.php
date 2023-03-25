@@ -11,8 +11,9 @@
 				<colgroup>
 					<col width="10%">
 					<col width="20%">
-					<col width="20%">
+					<col width="10%">
 					<col width="30%">
+					<col width="10%">
 					<col width="20%">
 				</colgroup>
 				<thead>
@@ -21,26 +22,28 @@
 						<th>Code</th>
 						<th>Module</th>
 						<th>Description</th>
+						<th>Credit Load</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$i = 1;
-					$qry = $conn->query("SELECT * FROM subjects order by unix_timestamp(date_created) desc ");
+					$qry = $conn->query("SELECT * FROM modules order by unix_timestamp(date_created) desc ");
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th>
-						<td><b><?php echo ucwords($row['subject_code']) ?></b></td>
-						<td><b><?php echo ucwords($row['subject']) ?></b></td>
+						<td><b><?php echo ucwords($row['module_code']) ?></b></td>
+						<td><b><?php echo ucwords($row['module']) ?></b></td>
 						<td><p class=""><?php echo $row['description'] ?></p></td>
+						<td><b><?php echo ucwords($row['credits']) ?></b></td>
 						<td class="text-center">
 		                    <div class="btn-group">
-		                        <a href="javascript:void(0)" data-id='<?php echo $row['id'] ?>' class="btn btn-primary btn-flat manage_subject">
+		                        <a href="javascript:void(0)" data-id='<?php echo $row['id'] ?>' class="btn btn-primary btn-flat manage_module">
 		                          <i class="fas fa-edit"></i>
 		                        </a>
-		                        <button type="button" class="btn btn-danger btn-flat delete_subject" data-id="<?php echo $row['id'] ?>">
+		                        <button type="button" class="btn btn-danger btn-flat delete_module" data-id="<?php echo $row['id'] ?>">
 		                          <i class="fas fa-trash"></i>
 		                        </button>
 	                      </div>
@@ -55,20 +58,20 @@
 <script>
 	$(document).ready(function(){
 		$('#list').dataTable()
-		$('.new_subject').click(function(){
-			uni_modal("New Subject","manage_subject.php")
+		$('.new_module').click(function(){
+			uni_modal("New Module","manage_module.php")
 		})
-		$('.manage_subject').click(function(){
-			uni_modal("Manage Subject","manage_subject.php?id="+$(this).attr('data-id'))
+		$('.manage_module').click(function(){
+			uni_modal("Manage Module","manage_module.php?id="+$(this).attr('data-id'))
 		})
-	$('.delete_subject').click(function(){
-	_conf("Are you sure to delete this Subject?","delete_subject",[$(this).attr('data-id')])
+	$('.delete_module').click(function(){
+	_conf("Are you sure to delete this Module?","delete_module",[$(this).attr('data-id')])
 	})
 	})
-	function delete_subject($id){
+	function delete_module($id){
 		start_load()
 		$.ajax({
-			url:'ajax.php?action=delete_subject',
+			url:'ajax.php?action=delete_module',
 			method:'POST',
 			data:{id:$id},
 			success:function(resp){

@@ -6,7 +6,7 @@
   
   ob_start();
   $title = isset($_GET['page']) ? ucwords(str_replace("_", ' ', $_GET['page'])) : "Home";
-  $title = str_replace("Persons Companies","Persons/Companies",$title);
+  // $title = str_replace("Persons Companies","Persons/Companies",$title);
   ?>
   <title><?php echo $title ?> | <?php echo $_SESSION['system']['name'] ?></title>
   <?php ob_end_flush() ?>
