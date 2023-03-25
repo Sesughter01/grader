@@ -1,42 +1,4 @@
-
-<!-- <//?php
-ob_start();
-$action = $_GET['action'];
-include 'admin_class.php';
-$crud = new Action();
-if($action == 'login'){
-	$login = $crud->login();
-	if($login)
-		echo $login;
-}
-?>
-<table>
-<//?php 
-
-    foreach ($_POST as $key => $value) {
-        echo "<tr>";
-        echo "<td>";
-        echo $key;
-        echo "</td>";
-        echo "<td>";
-        echo $value;
-        echo "</td>";
-        echo "</tr>";
-    }
-	
-	ob_end_flush();
-	
-?>
-</table>
-
-<//?php exit(); ?> -->
-
-  
-
-<?php 
-  
-
-
+<?php
 ob_start();
 date_default_timezone_set("Asia/Manila");
 

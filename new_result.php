@@ -1,6 +1,20 @@
-<?php if(!isset($conn)){ include 'db_connect.php'; } 
-  
-?>
+ <!-- <//?php if(!isset($conn)){ include 'db_connect.php'; } 
+   // $students = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s  order by concat(firstname,' ',middlename,' ',lastname) asc ");
+	//$row = $students->fetch_array();
+	// var_dump($students);
+	$id="1";
+	 if(isset($id)): 
+
+	
+    $items=$conn->query("SELECT r.*,m.module_code,m.module,m.id as mid FROM result_items r inner join modules m on m.id = r.module_id where result_id = $id order by m.module_code asc");
+	$row = $items->fetch_assoc();					
+            			// while($row = $items->fetch_assoc()):
+							var_dump($row);					
+			endif;     	
+	
+	exit();
+
+?>  -->
 <!-- <//?php $id = 564 ?> -->
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
@@ -16,7 +30,12 @@
                   <option></option> 
                   <?php 
                         $students = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s  order by concat(firstname,' ',middlename,' ',lastname) asc ");
+                        // $students = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s" );
+						// var_dump($students);
+						// exit();
                         while($row = $students->fetch_array()):
+
+							
                   ?> 
 				        
                         <option value="<?php echo $row['id'] ?>"  data-student_id='<?php echo $row['id'] ?>'  data-student='<?php echo $row['name'] ?>'  <?php echo isset($student_id) && $student_id == $row['id'] ? "selected" : '' ?>>
@@ -46,12 +65,22 @@
 	                        <option value="<?php echo $row['id'] ?>" data-json='<?php echo json_encode($row) ?>'><?php echo $row['module_code'].' | '.ucwords($row['module']) ?></option>
 	                  <?php endwhile; ?>
 	                </select>
+	                <!-- <select name="" id="c_load" class="form-control select2 select2-sm input-sm">
+	                  <option></option>  -->
+	                  <?php 
+	                        $modules = $conn->query("SELECT * FROM modules order by module asc ");
+	                        while($row = $modules->fetch_array()):
+	                  ?>
+					      <input type="hidden" class="form-control form-control-sm text-right number" value="<?php echo $row['credits'] ?>" id="credits">
+	                        <!-- <option value="<//?php echo $row['id'] ?>" data-json='<//?php echo json_encode($row) ?>'><//?php echo $row['credits'] ?></option> -->
+	                  <?php endwhile; ?>
+	                <!-- </select> -->
 	            </div>
 	            <div class="form-group col-sm-3">
 	                <label for="" class="control-label">Mark</label>
 	                <input type="number" class="form-control form-control-sm text-right number" id="mark" maxlength="6">
 	            </div>
-				<input type="hidden" class="form-control form-control-sm text-right number" id="c_load" value="<?php echo $row['id'] ?>">
+				<!-- <input type="hidden" class="form-control form-control-sm text-right number" id="c_load" value="<//?php echo $row['id'] ?>"> -->
 
 	            <button class="btn btn-sm btn-primary bg-gradient-primary" type="button" id="add_mark">Add</button>
             </div>
@@ -74,15 +103,17 @@
             		<?php if(isset($id)): ?>
             		<?php 
             			$items=$conn->query("SELECT r.*,m.module_code,m.module,m.id as mid FROM result_items r inner join modules m on m.id = r.module_id where result_id = $id order by m.module_code asc");
+						
             			while($row = $items->fetch_assoc()):
+							
             		?>
             		<tr data-id="<?php echo $row['mid'] ?>">
             			<td><input type="hidden" name="module_id[]" value="<?php echo $row['module_id'] ?>"><?php echo $row['module_code'] ?></td>
             			<td><?php echo ucwords($row['module']) ?></td>
             			<td><input type="hidden" name="mark[]" value="<?php echo $row['mark'] ?>"><?php echo $row['mark'] ?></td>
-            			<td><input type="hidden" name="c_load[]" value="<?php echo $row['c_load'] ?>"><?php echo $row['c_load'] ?></td>
+            			<td><input type="hidden"  name="c_load[]" value="<?php echo $row['c_load'] ?>"><?php echo $row['c_load'] ?></td>
 						
-            			<td><input type="hidden" name="grade[]" value="<?php echo $row['grade'] ?>"><?php echo $row['grade'] ?></td>
+            			<td><input type="hidden" id="grade" name="grade[]" value="<?php echo $row['grade'] ?>"><?php echo $row['grade'] ?></td>
             			<td><input type="hidden" name="cue[]" value="<?php echo $row['cue'] ?>"><?php echo $row['cue'] ?></td>
             			<td class="text-center"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc_ave()"><i class="fa fa-times"></i></button></td>
             		</tr>
@@ -90,14 +121,16 @@
             		<script>
             			$(document).ready(function(){
             				calc_ave()
+							grade()
+							cue()
             			})
 
-            			$(document).ready(function(){
-            				grade()
-            			})
-            			$(document).ready(function(){
-            				cue()
-            			})
+            			// $(document).ready(function(){
+            			// 	grade()
+            			// })
+            			// $(document).ready(function(){
+            			// 	cue()
+            			// })
 
 
             		</script>
@@ -152,11 +185,12 @@
 	$('#add_mark').click(function(){
 		var module_id = $('#module_id').val()
 		var mark = $('#mark').val()
-		var credit_load =$('[name="c_load[]"]').val()
+		
 	   
 		var mygrade = grade();
 		var mycue = cue();
-	    console.log(credit_load);
+		//  cue();
+	    // console.log(credit_load);
 		
 		if(module_id == '' && mark == ''){
 			alert_toast("Please select module & enter a mark before adding to list.","error");
@@ -173,15 +207,15 @@
 		tr.append('<td>'+sData.module+'</td>')
 		tr.append('<td class="text-center"><input type="hidden" name="mark[]" value="'+mark+'">'+mark+'</td>')
 		tr.append('<td class="text-center"><input type="hidden"  name="c_load[]" value="'+sData.credits+'">'+sData.credits+'</td>')
-		tr.append('<td class="text-center"><input type="hidden" id="grade" name="grade[]" value="'+mygrade+'">'+mygrade+'</td>')
-		tr.append('<td class="text-center"><input type="hidden" id="cue" name="cue[]" value="'+mycue+'">'+mycue+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="grade" name="grade[]" >'+mygrade+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="cue" name="cue[]" >'+mycue+'</td>')
 		tr.append('<td class="text-center"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest(\'tr\').remove() && calc_ave()"><i class="fa fa-times"></i></button></td>')
 		$('#mark-list tbody').append(tr)
 		$('#module_id').val('').trigger('change')
 		$('#mark').val('')
 		calc_ave()
 		// grade()
-		// cue()
+		// var mycue = cue();
 		
 	
 	})
@@ -199,13 +233,15 @@
 	function grade(){
          var grade = '';
 		 var new_mark = $('#mark').val();
-		 if(new_mark<50){
+		 num_mark = parseInt(new_mark);
+		//  console.log(typeof(num_mark));
+		 if(num_mark<50){
             grade = 'F';
-		 }else if(new_mark >= 50 && new_mark <=59 ){
+		 }else if(num_mark >= 50 && num_mark <=59 ){
 			grade = 'C';
-		 }else if(new_mark >= 60 && new_mark <=69){
+		 }else if(num_mark >= 60 && num_mark <=69){
 			grade = 'B';
-		 }else if(new_mark >= 70){
+		 }else if(num_mark >= 70){
 			grade = 'A'
 		 }
 		 $('#grade').text(grade)
@@ -216,17 +252,18 @@
 
 	function cue(){
 		var module_id = $('#module_id').val();
-		var credit_load = $('[name="c_load[]"]').val()
+		// var credit_load =$('#credits').val()
 		var new_mark = $('#mark').val();
+		var num_mark = parseFloat(new_mark);
 
-		// var smData = $('#module_id option[value="'+module_id+'"]').attr('data-json');
-			// smData = JSON.parse(smData)
-		// var credit_load = smData.credits;
-		console.log(module_id);
+		var smData = $('#module_id option[value="'+module_id+'"]').attr('data-json');
+			smData = JSON.parse(smData)
+		    var credit_load = smData.credits;
+		console.log(credit_load);
 			// sData = JSON.parse(sData)
         var cue = 0;
 		// var grade = $('[name="grade[]"]').val();
-        if(new_mark<50){
+        if(num_mark<50){
 			cue = 0;
 		}else{
 			cue = credit_load;
