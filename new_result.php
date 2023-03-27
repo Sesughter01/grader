@@ -1,20 +1,7 @@
- <!-- <//?php if(!isset($conn)){ include 'db_connect.php'; } 
-   // $students = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s  order by concat(firstname,' ',middlename,' ',lastname) asc ");
-	//$row = $students->fetch_array();
-	// var_dump($students);
-	$id="1";
-	 if(isset($id)): 
+  <?php if(!isset($conn)){ include 'db_connect.php'; } 
+  
 
-	
-    $items=$conn->query("SELECT r.*,m.module_code,m.module,m.id as mid FROM result_items r inner join modules m on m.id = r.module_id where result_id = $id order by m.module_code asc");
-	$row = $items->fetch_assoc();					
-            			// while($row = $items->fetch_assoc()):
-							var_dump($row);					
-			endif;     	
-	
-	exit();
-
-?>  -->
+?>  
 <!-- <//?php $id = 564 ?> -->
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
@@ -125,13 +112,6 @@
 							cue()
             			})
 
-            			// $(document).ready(function(){
-            			// 	grade()
-            			// })
-            			// $(document).ready(function(){
-            			// 	cue()
-            			// })
-
 
             		</script>
             		<?php endif; ?>
@@ -207,8 +187,8 @@
 		tr.append('<td>'+sData.module+'</td>')
 		tr.append('<td class="text-center"><input type="hidden" name="mark[]" value="'+mark+'">'+mark+'</td>')
 		tr.append('<td class="text-center"><input type="hidden"  name="c_load[]" value="'+sData.credits+'">'+sData.credits+'</td>')
-		tr.append('<td class="text-center"><input type="hidden" id="grade" name="grade[]" >'+mygrade+'</td>')
-		tr.append('<td class="text-center"><input type="hidden" id="cue" name="cue[]" >'+mycue+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="grade" name="grade[]" >'+mygrade[0]+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="c_u_e" name="c_u_e[]" >'+mycue+'</td>')
 		tr.append('<td class="text-center"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest(\'tr\').remove() && calc_ave()"><i class="fa fa-times"></i></button></td>')
 		$('#mark-list tbody').append(tr)
 		$('#module_id').val('').trigger('change')
@@ -231,28 +211,33 @@
 	}
 
 	function grade(){
+		var status = '';
          var grade = '';
+		 var gradStatus=[];
 		 var new_mark = $('#mark').val();
 		 num_mark = parseInt(new_mark);
 		//  console.log(typeof(num_mark));
 		 if(num_mark<50){
             grade = 'F';
+			status = 'failed';
 		 }else if(num_mark >= 50 && num_mark <=59 ){
 			grade = 'C';
+			status = 'passed';
 		 }else if(num_mark >= 60 && num_mark <=69){
 			grade = 'B';
+			status = 'passed';
 		 }else if(num_mark >= 70){
 			grade = 'A'
+			status = 'passed';
 		 }
-		 $('#grade').text(grade)
-		$('[name="grade[]"]').val(grade)
-		return grade;
-		// $('[name="grade"]').val(grade)
+		 gradStatus[0]= grade;
+		 gradStatus[1]= status;
+		return gradStatus;
+		
 	}
 
 	function cue(){
 		var module_id = $('#module_id').val();
-		// var credit_load =$('#credits').val()
 		var new_mark = $('#mark').val();
 		var num_mark = parseFloat(new_mark);
 
@@ -260,16 +245,13 @@
 			smData = JSON.parse(smData)
 		    var credit_load = smData.credits;
 		console.log(credit_load);
-			// sData = JSON.parse(sData)
         var cue = 0;
-		// var grade = $('[name="grade[]"]').val();
         if(num_mark<50){
 			cue = 0;
 		}else{
 			cue = credit_load;
 		}
-		$('#cue').text(cue);
-		$('[name="cue[]"]').val(cue);
+		
         return cue;
     }	
 

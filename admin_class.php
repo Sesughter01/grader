@@ -308,7 +308,7 @@ Class Action {
 		// var_dump($_POST);
 		// exit();
 		foreach($_POST as $k => $v){
-			if(!in_array($k, array('id','mark','module_id')) && !is_numeric($k)){
+			if(!in_array($k, array('id','mark','module_id','grade','c_u_e')) && !is_numeric($k)){
 				if(empty($data)){
 					$data .= " $k='$v' ";
 				}else{
