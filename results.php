@@ -24,14 +24,7 @@
 						<th class="text-center">#</th>
 						<th>Student Code</th>
 						<th>Student Name</th>
-						
-						<th>Module</th>
-						<!-- <th>Mark</th>
-						<th>Grade</th>
-						<th>C.U.E</th>
-						<th>C.Load</th>
-						<th>Status</th> -->
-
+						<th>Modules</th>
 						<th>Average</th>
 						<th>Action</th>
 					</tr>
@@ -46,7 +39,9 @@
 					}
 					// FETCH ALL THE STUDENTS RESULTS
 					$qry = $conn->query("SELECT r.*,concat(s.firstname,' ',s.middlename,' ',s.lastname) as name,s.student_code FROM results r  inner join students s on s.id = r.student_id $where order by unix_timestamp(r.date_created) desc ");
-					// GET MODULES OF STUDENTS WITH RESULTS
+					// $result_items = $conn->query("SELECT * FROM result_items where result_id =".$row['id']);
+					// $results = $result_items->fetch_assoc();
+					// GET NUMBER OF MODULES  OF STUDENTS WITH RESULTS
 					while($row= $qry->fetch_assoc()):
 						$modules = $conn->query("SELECT * FROM result_items where result_id =".$row['id'])->num_rows;
 					?>

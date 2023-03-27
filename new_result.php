@@ -114,7 +114,7 @@
             			<td><input type="hidden"  name="c_load[]" value="<?php echo $row['c_load'] ?>"><?php echo $row['c_load'] ?></td>
 						
             			<td><input type="hidden" id="grade" name="grade[]" value="<?php echo $row['grade'] ?>"><?php echo $row['grade'] ?></td>
-            			<td><input type="hidden" name="cue[]" value="<?php echo $row['cue'] ?>"><?php echo $row['cue'] ?></td>
+            			<td><input type="hidden" name="cue[]" value="<?php echo $row['c_u_e'] ?>"><?php echo $row['c_u_e'] ?></td>
             			<td class="text-center"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc_ave()"><i class="fa fa-times"></i></button></td>
             		</tr>
             		<?php endwhile; ?>

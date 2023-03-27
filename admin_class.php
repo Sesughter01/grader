@@ -304,6 +304,9 @@ Class Action {
 	function save_result(){
 		extract($_POST);
 		$data = "";
+
+		// var_dump($_POST);
+		// exit();
 		foreach($_POST as $k => $v){
 			if(!in_array($k, array('id','mark','module_id')) && !is_numeric($k)){
 				if(empty($data)){
@@ -330,6 +333,9 @@ Class Action {
 					$data= " result_id = $id ";
 					$data.= ", module_id = $v ";
 					$data.= ", mark = '{$mark[$k]}' ";
+					$data.= ", c_load = '{$c_load[$k]}' ";
+					$data.= ", grade = '{$grade[$k]}' ";
+					$data.= ", c_u_e = '{$cue[$k]}' ";
 					$this->db->query("INSERT INTO result_items set $data");
 				}
 				return 1;
