@@ -308,7 +308,7 @@ Class Action {
 		// var_dump($_POST);
 		// exit();
 		foreach($_POST as $k => $v){
-			if(!in_array($k, array('id','mark','module_id','grade','c_u_e')) && !is_numeric($k)){
+			if(!in_array($k, array('id','mark','module_id','grade','c_u_e','status','c_load')) && !is_numeric($k)){
 				if(empty($data)){
 					$data .= " $k='$v' ";
 				}else{
@@ -316,7 +316,7 @@ Class Action {
 				}
 			}
 		}
-		$chk = $this->db->query("SELECT * FROM results where student_id ='$student_id' and id != '$id' ");
+		$chk = $this->db->query("SELECT *FROM results r where student_id ='$student_id'  and id != '$id' ");
 		if($chk->num_rows > 0){
 			return 2;
 			exit;
@@ -333,9 +333,10 @@ Class Action {
 					$data= " result_id = $id ";
 					$data.= ", module_id = $v ";
 					$data.= ", mark = '{$mark[$k]}' ";
-					$data.= ", c_load = '{$c_load[$k]}' ";
 					$data.= ", grade = '{$grade[$k]}' ";
-					$data.= ", c_u_e = '{$cue[$k]}' ";
+					$data.= ", c_u_e = '{$c_u_e[$k]}' ";
+					$data.= ", c_load = '{$c_load[$k]}' ";
+					$data.= ", status = '{$status[$k]}' ";
 					$this->db->query("INSERT INTO result_items set $data");
 				}
 				return 1;

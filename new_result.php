@@ -80,9 +80,11 @@
             			<th>Module Code</th>
             			<th>Module</th>
             			<th>Mark</th>
-            			<th>Credit Load</th>
             			<th>Grade</th>
+            			<th>Credit Load</th>
             			<th>C_U_E</th>
+            			<th>Status</th>
+
             			<th></th>
             		</tr>
             	</thead>
@@ -98,10 +100,11 @@
             			<td><input type="hidden" name="module_id[]" value="<?php echo $row['module_id'] ?>"><?php echo $row['module_code'] ?></td>
             			<td><?php echo ucwords($row['module']) ?></td>
             			<td><input type="hidden" name="mark[]" value="<?php echo $row['mark'] ?>"><?php echo $row['mark'] ?></td>
-            			<td><input type="hidden"  name="c_load[]" value="<?php echo $row['c_load'] ?>"><?php echo $row['c_load'] ?></td>
 						
             			<td><input type="hidden" id="grade" name="grade[]" value="<?php echo $row['grade'] ?>"><?php echo $row['grade'] ?></td>
-            			<td><input type="hidden" name="cue[]" value="<?php echo $row['c_u_e'] ?>"><?php echo $row['c_u_e'] ?></td>
+            			<td><input type="hidden" name="c_u_e[]" value="<?php echo $row['c_u_e'] ?>"><?php echo $row['c_u_e'] ?></td>
+            			<td><input type="hidden"  name="c_load[]" value="<?php echo $row['c_load'] ?>"><?php echo $row['c_load'] ?></td>
+            			<td><input type="hidden" name="status[]" value="<?php echo $row['status'] ?>"><?php echo $row['status'] ?></td>
             			<td class="text-center"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc_ave()"><i class="fa fa-times"></i></button></td>
             		</tr>
             		<?php endwhile; ?>
@@ -141,7 +144,7 @@
             	</tfoot>
             </table>
             <input type="hidden" name="marks" value="<?php echo isset($marks) ? $marks : '' ?>">
-            <!-- <input type="hidden" name="grade" value="<//?php echo isset($grade) ? $grade : '' ?>"> -->
+            <!-- <input type="hidden" name="status" value="<//?php echo isset($status) ? $status : '' ?>">  -->
             <!-- <input type="hidden" name="cue" value="<//?php echo isset($cue) ? $cue : '' ?>">  -->
           </div>
         </div>
@@ -169,6 +172,7 @@
 	   
 		var mygrade = grade();
 		var mycue = cue();
+		var mystatus = status();
 		//  cue();
 	    // console.log(credit_load);
 		
@@ -186,9 +190,10 @@
 		tr.append('<td><input type="hidden" name="module_id[]" value="'+module_id+'">'+sData.module_code+'</td>')
 		tr.append('<td>'+sData.module+'</td>')
 		tr.append('<td class="text-center"><input type="hidden" name="mark[]" value="'+mark+'">'+mark+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="grade" name="grade[]" value="'+mygrade+'" >'+mygrade+'</td>')
 		tr.append('<td class="text-center"><input type="hidden"  name="c_load[]" value="'+sData.credits+'">'+sData.credits+'</td>')
-		tr.append('<td class="text-center"><input type="hidden" id="grade" name="grade[]" >'+mygrade[0]+'</td>')
-		tr.append('<td class="text-center"><input type="hidden" id="c_u_e" name="c_u_e[]" >'+mycue+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="c_u_e" name="c_u_e[]" value="'+mycue+'" >'+mycue+'</td>')
+		tr.append('<td class="text-center"><input type="hidden" id="status" name="status[]" value="'+mystatus+'" >'+mystatus+'</td>')
 		tr.append('<td class="text-center"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest(\'tr\').remove() && calc_ave()"><i class="fa fa-times"></i></button></td>')
 		$('#mark-list tbody').append(tr)
 		$('#module_id').val('').trigger('change')
@@ -206,35 +211,63 @@
 			i++;
 			total = total + parseFloat($(this).val())
 		})
-		$('#average').text(parseFloat(total/i).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2}))
-		$('[name="marks"]').val(parseFloat(total/i).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2}))
+		// $('#average').text(parseFloat(total/i).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2}))
+		// $('[name="marks"]').val(parseFloat(total/i).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2}))
+		$('#average').text(parseFloat(total/i))
+		$('[name="marks"]').val(parseFloat(total/i))
 	}
 
 	function grade(){
-		var status = '';
+		
          var grade = '';
-		 var gradStatus=[];
+		 
 		 var new_mark = $('#mark').val();
 		 num_mark = parseInt(new_mark);
 		//  console.log(typeof(num_mark));
 		 if(num_mark<50){
             grade = 'F';
-			status = 'failed';
+			
 		 }else if(num_mark >= 50 && num_mark <=59 ){
 			grade = 'C';
-			status = 'passed';
+			
 		 }else if(num_mark >= 60 && num_mark <=69){
 			grade = 'B';
-			status = 'passed';
+			
 		 }else if(num_mark >= 70){
 			grade = 'A'
-			status = 'passed';
+			
 		 }
-		 gradStatus[0]= grade;
-		 gradStatus[1]= status;
-		return gradStatus;
+		
+		
+		// $('[name="status"]').val(gradStatus[1])
+		return grade;
 		
 	}
+
+	function status(){
+          var status = '';
+         
+         var new_mark = $('#mark').val();
+         num_mark = parseInt(new_mark);
+        //  console.log(typeof(num_mark));
+         if(num_mark<50){
+           
+            status = 'failed';
+         }else if(num_mark >= 50 && num_mark <=59 ){
+           
+            status = 'passed';
+         }else if(num_mark >= 60 && num_mark <=69){
+           
+            status = 'passed';
+         }else if(num_mark >= 70){
+           
+            status = 'passed';
+         }
+        
+        //   $('[name="status"]').val(gradStatus[1])
+         return status;
+        
+    }
 
 	function cue(){
 		var module_id = $('#module_id').val();
