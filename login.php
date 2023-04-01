@@ -10,6 +10,10 @@ include('./db_connect.php');
     foreach($system as $k => $v){
       $_SESSION['system'][$k] = $v;
     }
+    // $users = $conn->query("SELECT * FROM users")->fetch_array();
+    // foreach($users as $k => $v){
+    //   $user[$k] = $v;
+    // }
   // }
   ob_end_flush();
 ?>
@@ -22,7 +26,7 @@ include('./db_connect.php');
 
 <?php include('./header.php'); ?>
 <?php 
-if(isset($_SESSION['login_id']))
+if(isset($_SESSION['login_user_type']))
 header("location:index.php?page=home");
 
 ?>
@@ -54,7 +58,7 @@ header("location:index.php?page=home");
   		<div class="align-self-center w-100">
 		<h4 class="text-white text-center"><b><?php echo $_SESSION['system']['name'] ?> - Admin</b></h4>
   		<div id="login-center" class="bg-dark row justify-content-center">
-  			<div class="card col-md-4">
+  			<div class="card col-md-4 ">
   				<div class="card-body">
   					<form id="login-form" >
   						<div class="form-group">
@@ -65,6 +69,15 @@ header("location:index.php?page=home");
   							<label for="password" class="control-label text-dark">Password</label>
   							<input type="password" id="password" name="password" class="form-control form-control-sm">
   						</div>
+              <div class="form-group">
+                <label for="user_type" class="control-label text-dark">User Type</label>
+                    <select name="user_type" id="user_type" class="custom-select custom-select-sm">
+                      <option value="3" <?php echo isset($user_type) && $user_type == 3 ? 'selected' : '' ?>>Student</option>
+                      <option value="2" <?php echo isset($user_type) && $user_type == 2 ? 'selected' : '' ?>>Registrar</option>
+                      <option value="1" <?php echo isset($user_type) && $user_type == 1 ? 'selected' : '' ?>>Admin</option>
+                    </select>
+                <!-- <input type="hidden" id="user_type" name="user_type" value="3"> -->
+              </div>
   						<div class="w-100 d-flex justify-content-center align-items-center">
                 <button class="btn-sm btn-block btn-wave col-md-4 btn-primary m-0 mr-1">Login</button>
                 <button class="btn-sm btn-block btn-wave col-md-4 btn-success m-0" type="button" id="view_result">View Result</button>
@@ -91,6 +104,8 @@ header("location:index.php?page=home");
                 <label for="student_code" class="control-label text-dark">Student ID #:</label>
                 <input type="text" id="student_code" name="student_code" class="form-control form-control-sm">
               </div>
+            
+
           </form>
         </div>
       </div>
@@ -126,8 +141,8 @@ header("location:index.php?page=home");
 				if(resp == 1){
 					location.href ='index.php?page=home';
 				}else{
-					$('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
-					$('#login-form button[type="button"]').removeAttr('disabled').html('Login');
+					$('#login-form').prepend('<div class="alert alert-danger">Stop or I\'ll or password is incorrect.</div>')
+					$('#login-form button[type="button"]').removeAttr('disabled').html('View Result');
 				}
 			}
 		})

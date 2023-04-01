@@ -1,7 +1,7 @@
 <?php include 'db_connect.php' ?>
 <?php
 if(isset($_GET['id'])){
-	$type_arr = array('',"Admin","User");
+	$type_arr = array('',"Admin","User","student");
 	$qry = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where id = ".$_GET['id'])->fetch_array();
 foreach($qry as $k => $v){
 	$$k = $v;
@@ -25,7 +25,7 @@ foreach($qry as $k => $v){
         <div class="container-fluid">
         	
         		<dt>User Type</dt>
-        		<dd><?php echo $type_arr[$type] ?></dd>
+        		<dd><?php echo $type_arr[$user_type] ?></dd>
         	</dl>
         </div>
     </div>

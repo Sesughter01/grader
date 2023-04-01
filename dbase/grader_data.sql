@@ -158,6 +158,7 @@ CREATE TABLE `users` (
   `id` int(30) NOT NULL,
   `firstname` varchar(200) NOT NULL,
   `lastname` varchar(200) NOT NULL,
+  `middlename` varchar(200) NOT NULL,
   `username` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `password` text NOT NULL,
@@ -169,8 +170,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`,`email`, `password`, `user_type`, `date_created`) VALUES
-(1, 'Otesiri', 'Okposio', 'adm','otesiri@sample.comm', '0192023a7bbd73250516f069df18b500', 1, '2020-11-20 13:25:41');
+INSERT INTO `users` (`id`, `firstname`, `lastname`,`middlename`, `username`,`email`, `password`, `user_type`, `date_created`) VALUES
+(1, 'Otesiri', 'Okposio',`O`, 'adm','otesiri@sample.comm', '0192023a7bbd73250516f069df18b500', 1, '2020-11-20 13:25:41');
 
 --
 -- Indexes for dumped tables

@@ -173,8 +173,7 @@
 		var mygrade = grade();
 		var mycue = cue();
 		var mystatus = status();
-		//  cue();
-	    // console.log(credit_load);
+		
 		
 		if(module_id == '' && mark == ''){
 			alert_toast("Please select module & enter a mark before adding to list.","error");

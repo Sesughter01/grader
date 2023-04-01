@@ -17,7 +17,8 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where username = '".$username."' and password = '".md5($password)."' and user_type= 1 ");
+		$hash_pass = md5($password);
+			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where username = '".$username."' and password = '".$hash_pass."' and user_type= $user_type");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
@@ -64,7 +65,7 @@ Class Action {
 					$data .= ", password=md5('$password') ";
 
 		}
-		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
+		$check = $this->db->query("SELECT * FROM users where email ='$email' " .(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
 			exit;
@@ -129,7 +130,8 @@ Class Action {
 				if(!in_array($key, array('id','cpass','password')) && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
-					$_SESSION['login_id'] = $id;
+				 $_SESSION['login_id'] = $id;
+					$_SESSION['login_user_type'] = $user_type;
 			return 1;
 		}
 	}

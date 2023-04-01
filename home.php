@@ -19,9 +19,9 @@
               <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-th-list"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Total Results</span>
+                <span class="info-box-text">Total Passed</span>
                 <span class="info-box-number">
-                  <?php echo $conn->query("SELECT * FROM modules")->num_rows; ?>
+                  <?php echo $conn->query("SELECT * FROM results WHERE marks >= 50 ")->num_rows; ?>
                 </span>
               </div>
             </div>
@@ -44,7 +44,7 @@
 	 <div class="col-12">
           <div class="card">
           	<div class="card-body">
-          		Welcome <?php echo $_SESSION['login_name'] ?>!
+          		Welcome <?php echo $_SESSION['login_username'] ?>!
           	</div>
           </div>
       </div>

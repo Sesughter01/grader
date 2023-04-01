@@ -39,13 +39,14 @@
 						<?php if($_SESSION['login_user_type'] == 1): ?>
 						<div class="form-group">
 							<label for="" class="control-label">User Role</label>
-							<select name="type" id="type" class="custom-select custom-select-sm">
-								<option value="2" <?php echo isset($type) && $type == 2 ? 'selected' : '' ?>>Registrar</option>
-								<option value="1" <?php echo isset($type) && $type == 1 ? 'selected' : '' ?>>Admin</option>
+							<select name="user_type" id="user_type" class="custom-select custom-select-sm">
+								<option value="2" <?php echo isset($user_type) && $user_type == 3 ? 'selected' : '' ?>>Student</option>
+								<option value="1" <?php echo isset($user_type) && $user_type == 2 ? 'selected' : '' ?>>Registrar</option>
+								<option value="1" <?php echo isset($user_type) && $user_type == 1 ? 'selected' : '' ?>>Admin</option>
 							</select>
 						</div>
 						<?php else: ?>
-							<input type="hidden" name="type" value="3">
+							<input type="hidden" name="user_type" value="3">
 						<?php endif; ?>
 						<div class="form-group">
 							<label class="control-label">Email</label>
