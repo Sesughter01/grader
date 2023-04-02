@@ -95,14 +95,14 @@
               </p>
             </a>
           </li>  
-             <!-- <li class="nav-item dropdown">
+             <li class="nav-item dropdown">
             <a href="./index.php?page=send_post_data" class="nav-link nav-results nav-new_result nav-edit_result">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 test
               </p>
             </a>
-          </li>        -->
+          </li>        
         </ul>
       </nav>
     </div>

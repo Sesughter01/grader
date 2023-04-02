@@ -159,7 +159,7 @@
 </div>
 <?php endif; ?>
 
-<?php	if(($_SESSION['login_user_type']==3)&& $_SESSION['login_id']): ?> 
+<?php	if(($_SESSION['login_user_type']==3)): ?> 
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-body">
@@ -173,10 +173,8 @@
                   <select name="student_id" id="student_id" class="form-control select2 select2-sm" required>
                   <option></option> 
                   <?php 
-				//   $i = 1;
-				//   $where = "";
-				//   $where = " where r.student_id = {$_SESSION['login_id']} ";
-                        $student = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s where student_id={$_SESSION['login_id']}  order by concat(firstname,' ',middlename,' ',lastname) asc ");
+				
+                        $student = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s where student_code={$_SESSION['login_student_code']}  order by concat(firstname,' ',middlename,' ',lastname) asc ");
                         
                         while($row = $student->fetch_array()):
 
