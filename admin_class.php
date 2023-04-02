@@ -147,7 +147,7 @@ Class Action {
 			if(empty($id))
 				$id = $this->db->insert_id;
 			foreach ($_POST as $key => $value) {
-				if(!in_array($key, array('id','cpass','password')) && !is_numeric($key))
+				if(!in_array($key, array('cpass','password')) && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
 			
@@ -162,10 +162,10 @@ Class Action {
 				if(!in_array($key, array('id','cpass','password')) && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
-			if($save2){
+			
 			$_SESSION['login_student_code'] = $student_code;
 
-			}
+			
 				 $_SESSION['login_id'] = $id;
 					$_SESSION['login_user_type'] = $user_type;
 			return 1;
