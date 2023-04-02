@@ -105,7 +105,7 @@ Class Action {
 				}
 			}
 		}
-		foreach($_POST as $k => $v){
+       foreach($_POST as $k => $v){
 			if(!in_array($k, array('id','cpass','password','user_type','username','email')) && !is_numeric($k)){
 				
 				if(empty($std_data)){
@@ -115,7 +115,6 @@ Class Action {
 				}
 			}
 		}
-
 		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
@@ -129,28 +128,29 @@ Class Action {
 		}
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO users set $data");
-			
+
+		}else{
+			$save = $this->db->query("UPDATE users set $data where id = $id");
 		}
-		if(isset($student_code) && !empty($student_code)){
+        if(isset($student_code) && !empty($student_code)){
 
 			$check2 = $this->db->query("SELECT * FROM students where student_code ='$student_code' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 			if($check2 > 0){
 				return 2;
 				exit;
 		}
-		}
-		if(!empty($student_code)){
+	}
+	if(!empty($student_code)){
 			$save2 = $this->db->query("INSERT INTO students set $std_data");
 		
 		}
-		if($save ){
+		if($save){
 			if(empty($id))
 				$id = $this->db->insert_id;
 			foreach ($_POST as $key => $value) {
-				if(!in_array($key, array('cpass','password')) && !is_numeric($key))
+				if(!in_array($key, array('id','cpass','password')) && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
-			
 				 $_SESSION['login_id'] = $id;
 					$_SESSION['login_user_type'] = $user_type;
 			return 1;
@@ -163,7 +163,7 @@ Class Action {
 					$_SESSION['login_'.$key] = $value;
 			}
 			
-			$_SESSION['login_student_code'] = $student_code;
+			
 
 			
 				 $_SESSION['login_id'] = $id;
@@ -171,7 +171,7 @@ Class Action {
 			return 1;
 		}
 	}
-
+    
 	function update_user(){
 		extract($_POST);
 		$data = "";

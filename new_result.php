@@ -1,6 +1,7 @@
   <?php if(!isset($conn)){ include 'db_connect.php'; } 
   
-
+//    var_dump($_SESSION['login_student_code']);
+//    exit();
 ?>  
 <!-- <//?php $id = 564 ?> -->
 <?php	if(($_SESSION['login_user_type']==1)): ?> 
@@ -174,7 +175,8 @@
                   <option></option> 
                   <?php 
 				
-                        $student = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s where student_code={$_SESSION['login_student_code']}  order by concat(firstname,' ',middlename,' ',lastname) asc ");
+                        // $student = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s where student_code= '".$_SESSION['login_student_code']."'  order by concat(firstname,' ',middlename,' ',lastname) asc ");
+                        $student = $conn->query("SELECT s.*,concat(firstname,' ',middlename,' ',lastname) as name FROM students s where student_code= '".$_SESSION['login_student_code']."'  order by concat(firstname,' ',middlename,' ',lastname) asc ");
                         
                         while($row = $student->fetch_array()):
 
@@ -188,8 +190,8 @@
 					    </option>
                   <?php endwhile; ?>
                 </select>
-                <small id="student"><?php echo isset($student) ? "Current Student: ".$student : "" ?></small> 
-                <input type="hidden" name="student_id" value="<?php echo isset($student_id) ? $student_id: '' ?>"> 
+                <!-- <small id="student"><//?php echo isset($student) ? "Current Student: ".$student : "" ?></small> 
+                <input type="hidden" name="student_id" value="<//?php echo isset($student_id) ? $student_id: '' ?>">  -->
             </div>
           </div>
         </div>
