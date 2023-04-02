@@ -71,11 +71,12 @@ header("location:index.php?page=home");
   						</div>
               <div class="form-group">
                 <label for="user_type" class="control-label text-dark">User Type</label>
-                    <select name="user_type" id="user_type" class="custom-select custom-select-sm">
-                      <option value="3" <?php echo isset($user_type) && $user_type == 3 ? 'selected' : '' ?>>Student</option>
-                      <option value="2" <?php echo isset($user_type) && $user_type == 2 ? 'selected' : '' ?>>Registrar</option>
-                      <option value="1" <?php echo isset($user_type) && $user_type == 1 ? 'selected' : '' ?>>Admin</option>
-                    </select>
+                <select name="user_type" id="user_type" class="custom-select custom-select-sm">
+                  <option value="3" <?php echo isset($user_type) && $user_type == 3 ? 'selected' : '' ?>>Student</option>
+                  <option value="2" <?php echo isset($user_type) && $user_type == 2 ? 'selected' : '' ?>>Registrar</option>
+                  <option value="1" <?php echo isset($user_type) && $user_type == 1 ? 'selected' : '' ?>>Admin</option>
+                </select>
+               
                 <!-- <input type="hidden" id="user_type" name="user_type" value="3"> -->
               </div>
   						<div class="w-100 d-flex justify-content-center align-items-center">

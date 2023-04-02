@@ -106,7 +106,10 @@ header("location:index.php?page=home");
                       <option value="1" <?php echo isset($user_type) && $user_type == 1 ? 'selected' : '' ?>>Admin</option>
                     </select>
                   </div>
-                  
+                  <div class="form-group">
+                      <label for="student_code" class="control-label text-dark">Student Code</label>
+                      <input type="text" id="std_code" name="student_code" class="form-control form-control-sm">
+                  </div>
                 </div>
 
               <!-- </div> -->
@@ -151,6 +154,9 @@ header("location:index.php?page=home");
 </body>
 <?php include 'footer.php' ?>
 <script>
+
+
+
   $('[name="password"],[name="cpass"]').keyup(function(){
 		var pass = $('[name="password"]').val()
 		var cpass = $('[name="cpass"]').val()
@@ -164,6 +170,17 @@ header("location:index.php?page=home");
 			}
 		}
 	})
+//  CHECK THE USER TYPE IF ITS STUDENT 
+$('[name="user_type"]').change(function() {
+  var logged_user = $('[name="user_type"]').val();
+  if(logged_user != 3){
+    $('#std_code').attr('disabled',true);
+  }else{
+    $('#std_code').attr('disabled',false);
+  }
+  
+})
+
   $('#view_result').click(function(){
     $('#view_student_results').modal('show')
   })
