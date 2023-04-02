@@ -9,6 +9,7 @@
 			</div>
 		</div>
 	<?php endif; ?>
+
 		<div class="card-body">
 			<table class="table tabe-hover table-bordered" id="list">
 				<colgroup>
@@ -33,7 +34,7 @@
 					<?php
 					$i = 1;
 					$where = "";
-					// IF A STUDENT LOGS IN
+					// IF A STUDENT LOGS INs
 					if(isset($_SESSION['rs_id'])){
 						$where = " where r.student_id = {$_SESSION['rs_id']} ";
 					}

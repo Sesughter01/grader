@@ -119,8 +119,10 @@ Class Action {
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO users set $data");
 
-		}else{
+		}else if(empty($user_type)){
 			$save = $this->db->query("UPDATE users set $data where id = $id");
+		}else{
+			
 		}
 
 		if($save){

@@ -8,7 +8,7 @@ foreach($qry as $k => $v){
 <div class="container-fluid" id="printable">
 	<table width="100%">
 		<tr>
-			<td width="50%">Student ID #: <b><?php echo $student_code ?></b></td>
+			<td width="30%">Student ID #: <b><?php echo $student_code ?></b></td>
 			<td id="award" width="50%">Award: <b></b></td>
 			
 
@@ -45,27 +45,30 @@ foreach($qry as $k => $v){
 					$sumF ++;
 				}
 			}
-			$qry_2 = $conn->query("SELECT r*,ri.module_id,ri.mark from results r inner join result_items ri on r.id = ri.result_id where r.id = ".$_GET['id']." and ri.module_id=8")->fetch_array();
+			$qry_2 = $conn->query("SELECT r.*,ri.module_id,ri.mark FROM results r inner join result_items ri on r.id = ri.result_id where ri.module_id = 8 and r.id = ".$_GET['id'] )->fetch_assoc();
 			foreach($qry_2 as $k => $v){
 				$$k = $v;
 			}
 			  if($marks >=70 && $module_id = 8 && $mark >=68 ){
-
+                   $class = "Distinction";
+			  }else if ($marks >=60 && $module_id = 8 && $mark >=58){
+				$class = "Merit";
 			  }
 			?>
 			
 		<tr>
 			<td width="50%">Student Name: <b><?php echo ucwords($name) ?></b></td>
-			<td id="class" width="50%">Award Classification: <b></b></td>
+			<td id="class" width="50%">Award Classification: <b><?php echo $class ?></b></td>
 			
 		</tr>
 		<tr>
-			<td class="text-left" width="10%">A: <b><?php echo $sumA ?></b></td>
-			<td width="10%">B: <b><?php echo $sumB ?></b></td>
-			<td width="10%">C: <b><?php echo $sumC ?></b></td>
-			<td width="10%">D: <b><?php echo $sumD ?></b></td>
-			<td width="10%">E: <b><?php echo $sumE ?></b></td>
-			<td width="10%">F: <b><?php echo $sumF ?></b></td>
+			<td></td>
+			<td class="text-center" width="10%">A: <b><?php echo $sumA ?></b></td>
+			<td class="text-center"  width="10%">B: <b><?php echo $sumB ?></b></td>
+			<td class="text-center" width="10%">C: <b><?php echo $sumC ?></b></td>
+			<td class="text-center" width="10%">D: <b><?php echo $sumD ?></b></td>
+			<td class="text-center" width="10%">E: <b><?php echo $sumE ?></b></td>
+			<td  class="text-center" width="10%">F: <b><?php echo $sumF ?></b></td>
 			
 		</tr>
 	</table>
@@ -185,52 +188,7 @@ foreach($qry as $k => $v){
 		$('#award b').text(award)
 		return award;
 	}
-    // function classify(){
-	// 	var avg = $('#average_score').text();
-	// 	var module_desertation_arr = $('.module_arr').text();
-	// 	var desertation_mod_str =  module_desertation_arr;
-	// 	var desert_mod = "";
-    //      var  desertation_mod_arr= desertation_mod_str.match(/.{1,4}/g).map(s => s.padEnd(4, "_"));
-    //      console.log(desertation_mod_arr); // ["He", "ll", "oW", "or", "ld"]
-
-
-
-
-	// 	var score_str = 0;
-	// 	// var score_str = $('.score').text();
-	// 	// var score_str_arr = score_str.match(/.{1,2}/g).map(s=>s.padEnd(2,"_"));
-	// 	var int_score = 0;
-
-	// 	var int_module_desertation = 0;
-	// 	var int_avg = parseFloat(avg);
-    //     //   console.log(typeof module_desertation);
-    //     //   console.log(int_avg);
-    //     //   console.log(int_score);
-	// 	var my_class = "";
-	// 	if(int_avg >=60 ){
-	// 		for (mod in desertation_mod_arr){
-
-	// 			if (mod == '7009'){
-	// 				desert_mod = mod;
-	// 				score = $('.score').text();
-    //                 int_score=  parseFloat(score);
-	// 				break;
-	// 			}
-	// 		}
-			
-	// 		// console.log(module_desertation);
-	// 		my_class = "Merit";
-
-	// 	}else if(int_avg >=70 && module_desertation == '7009' && int_score >= 68){
-	// 		my_class = "Distinction";
-	// 	} else {
-	// 		my_class = "";
-	// 	}
-	// 	$('#class b').text(my_class)
-	// 	return my_class;
-	// }
-
-
+    
 
 	$('#print').click(function(){
 		start_load()
