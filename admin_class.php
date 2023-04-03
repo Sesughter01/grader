@@ -17,17 +17,40 @@ Class Action {
 
 	function login(){
 		extract($_POST);
+
+		// if($user_type == '3'){
+			
+        //     return 1;
+		// }
 		$hash_pass = md5($password);
+		if($user_type == 1){
+
 			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where username = '".$username."' and password = '".$hash_pass."' and user_type= $user_type");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
+				
 			}
 				return 1;
 		}else{
 			return 2;
 		}
+		}
+		if ($user_type == 3){
+			$qry = $this->db->query("SELECT s.*,concat(u.firstname,u.middlename,u.lastname) as name,u.user_type,u.username FROM students s inner join  users u on s.user_id = u.id where u.username = '".$username."' and u.password = '".$hash_pass."'  and  u.user_type= ".$user_type);
+			if($qry->num_rows > 0){
+				foreach ($qry->fetch_array() as $key => $value) {
+					if($key != 'password' && !is_numeric($key))
+						$_SESSION['login_'.$key] = $value;
+					
+				}
+					return 1;
+			}else{
+				return 2;
+			}
+		}
+
 	}
 	function logout(){
 		session_destroy();

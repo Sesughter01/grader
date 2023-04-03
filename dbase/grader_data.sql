@@ -84,6 +84,7 @@ INSERT INTO `result_items` (`id`, `result_id`, `module_id`, `mark`, `grade`,`c_u
 
 CREATE TABLE `students` (
   `id` int(30) NOT NULL,
+  `user_id` int(30) NOT NULL,
   `student_code` varchar(50) NOT NULL,
   `firstname` varchar(200) NOT NULL,
   `middlename` varchar(200) NOT NULL,
@@ -95,9 +96,9 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `student_code`, `firstname`, `middlename`, `lastname`, `date_created`) VALUES
-(1, 'msc701', 'Otesiri', 'O', 'Okposio', '2020-11-21 14:29:03'),
-(2, 'msc712', 'GoodChild', 'K', 'Trent',   '2020-11-25 16:45:05');
+INSERT INTO `students` (`id`,`user_id` ,`student_code`, `firstname`, `middlename`, `lastname`, `date_created`) VALUES
+(1,1, 'msc701', 'Otesiri', 'O', 'Okposio', '2020-11-21 14:29:03'),
+(2,2, 'msc712', 'GoodChild', 'K', 'Trent',   '2020-11-25 16:45:05');
 
 -- --------------------------------------------------------
 
@@ -171,7 +172,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`,`middlename`, `username`,`email`, `password`, `user_type`, `date_created`) VALUES
-(1, 'Otesiri', 'Okposio',`O`, 'adm','otesiri@sample.comm', '0192023a7bbd73250516f069df18b500', 1, '2020-11-20 13:25:41');
+(1, 'Otesiri', 'Okposio','O', 'adm','otesiri@sample.comm', '0192023a7bbd73250516f069df18b500', 1, '2023-04-20 13:25:41'),
+(2, 'GoodChild', 'K', 'Trent', 'tre','trent@sample.comm', '0192023a7bbd73250516f069df18b500', 3, '2023-04-20 13:27:40');
 
 --
 -- Indexes for dumped tables
