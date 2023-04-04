@@ -43,7 +43,7 @@ Class Action {
 				foreach ($qry->fetch_array() as $key => $value) {
 					if($key != 'password' && !is_numeric($key))
 						$_SESSION['login_'.$key] = $value;
-					
+						// $_SESSION['login_student_id'] = $id;
 				}
 					return 1;
 			}else{
@@ -136,6 +136,7 @@ Class Action {
 				}else{
 					$std_data .= ", $k='$v' ";
 				}
+				
 			}
 		}
 		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
@@ -161,6 +162,11 @@ Class Action {
 			if($check2 > 0){
 				return 2;
 				exit;
+		}
+        if(!isset($user_id) && !empty($student_code)){
+
+			$check3 = $this->db->query("SELECT * FROM users ")->num_rows;
+			$std_data .= ", user_id = ".$check3++;
 		}
 	}
 	if(!empty($student_code)){
@@ -188,7 +194,7 @@ Class Action {
 			
 			
 
-			
+			$_SESSION['login_student_id'] = $id;
 				 $_SESSION['login_id'] = $id;
 					$_SESSION['login_user_type'] = $user_type;
 			return 1;

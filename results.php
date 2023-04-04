@@ -38,6 +38,10 @@
 					if(isset($_SESSION['rs_id'])){
 						$where = " where r.student_id = {$_SESSION['rs_id']} ";
 					}
+					if(isset($_SESSION['login_student_code'])){
+
+						$where = " where s.student_code = {$_SESSION['login_student_code']} ";
+					}
 					// FETCH ALL THE STUDENTS RESULTS
 					$qry = $conn->query("SELECT r.*,concat(s.firstname,' ',s.middlename,' ',s.lastname) as name,s.student_code FROM results r  inner join students s on s.id = r.student_id $where order by unix_timestamp(r.date_created) desc ");
 					
