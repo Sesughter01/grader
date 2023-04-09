@@ -33,32 +33,43 @@ header("location:index.php?page=home");
 
 </head>
 <style>
+  *{
+    margin:0;
+    padding: 0;
+    
+  }
 	body{
-		width: 100%;
-	    height: calc(100%);
-	    position: fixed;
-	    top:0;
-	    left: 0;
-        align-items:center !important;
-	    /*background: #007bff;*/
+		  width: 100%;
+	    height: 100vh !important;
+      align-items:center !important;
+	   
 	}
 	main#main{
 		width:100%;
-		height: calc(100%);
+		height: 100%;
 		display: flex;
 	}
+  #login_title{
+    box-sizing: border-box;
+    width:396.1px;
+    height:310px;
+  }
 
 </style>
 
-<body class="bg-dark">
+<body class=" container bg-secondary justify-content-center align-items-center">
 
 
   <main id="main" >
   	
   		<div class="align-self-center w-100">
-		<h4 class="text-white text-center"><b><?php echo $_SESSION['system']['name'] ?> - Admin</b></h4>
-  		<div id="login-center" class="bg-dark row justify-content-center">
-  			<div class="card col-md-4 ">
+        <div id="login-center" class="row justify-content-center align-items-center">
+          <div class="card rounded-0 col-md-4 bg-primary p-5 justify-content-center align-items-center " id="login_title">
+            
+            <h4 class="text-white text-center"><b><?php echo $_SESSION['system']['name'] ?> </b></h4>
+
+          </div>
+  			<div class="card rounded-0 col-md-4 ">
   				<div class="card-body">
   					<form id="login-form" >
   						<div class="form-group">
@@ -87,7 +98,7 @@ header("location:index.php?page=home");
                       <a href="./register.php" class="back-to-top">Don't have an account? Sign-up</a>
   				</div>
   			</div>
-  		</div>
+  		  </div>
   		</div>
   </main>
 

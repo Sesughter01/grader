@@ -46,14 +46,23 @@ foreach($qry as $k => $v){
 				}
 			}
 			$qry_2 = $conn->query("SELECT r.*,ri.module_id,ri.mark FROM results r inner join result_items ri on r.id = ri.result_id where ri.module_id = 8 and r.id = ".$_GET['id'] )->fetch_assoc();
-			foreach($qry_2 as $k => $v){
-				$$k = $v;
-			}
+			if(isset($qry_2)){
+				foreach($qry_2 as $k => $v){
+					$$k = $v;
+				}
+
+			
 			  if($marks >=70 && $module_id = 8 && $mark >=68 ){
                    $class = "Distinction";
 			  }else if ($marks >=60 && $module_id = 8 && $mark >=58){
 				$class = "Merit";
+			  }else if($marks ==null || $module_id == null || $mark ==null){
+				$class = "Incomplete results";
 			  }
+			}
+			  else if(!isset($qry_2)){
+				$class = "Incomplete results";
+			}
 			?>
 			
 		<tr>

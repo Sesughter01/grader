@@ -98,7 +98,7 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`,`user_id` ,`student_code`, `firstname`, `middlename`, `lastname`, `date_created`) VALUES
 (1,1, 'msc701', 'Otesiri', 'O', 'Okposio', '2020-11-21 14:29:03'),
-(2,2, 'msc712', 'GoodChild', 'K', 'Trent',   '2020-11-25 16:45:05');
+(2,2, 'msc712', 'Charles', 'S', 'Avul',   '2020-11-25 16:45:05');
 
 -- --------------------------------------------------------
 

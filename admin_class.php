@@ -18,16 +18,14 @@ Class Action {
 	function login(){
 		extract($_POST);
 
-		// if($user_type == '3'){
-			
-        //     return 1;
-		// }
+		
 		$hash_pass = md5($password);
 		if($user_type == 1){
 
 			$qry = $this->db->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where username = '".$username."' and password = '".$hash_pass."' and user_type= $user_type");
 		if($qry->num_rows > 0){
-			foreach ($qry->fetch_array() as $key => $value) {
+			$val_qry =$qry->fetch_array();
+			foreach ( $val_qry as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 				
@@ -121,6 +119,7 @@ Class Action {
 					$v = md5($v);
 
 				}
+				// "$firstname = 'jon'"
 				if(empty($data)){
 					$data .= " $k='$v' ";
 				}else{

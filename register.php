@@ -62,53 +62,53 @@ header("location:index.php?page=home");
 
                 <div class=" d-lg-flex justify-content-center align-items-center p-sm-2 mx-auto">
                   <div class="  col-12 col-lg-6 ">
-                    <label for="firstname" class="control-label text-dark">First name</label>
-                    <input type="text" id="firstname" name="firstname" class="form-control form-control-sm">
+                    <!-- <label for="firstname" class="control-label text-dark">First name</label> -->
+                    <input type="text" id="firstname" name="firstname" class="form-control form-control-sm" placeholder="First name">
                   </div>
                   <div class=" col-12 col-lg-6">
-                    <label for="lastname" class="control-label text-dark">Last name</label>
-                    <input type="text" id="lastname" name="lastname" class="form-control form-control-sm">
+                    <!-- <label for="lastname" class="control-label text-dark">Last name</label> -->
+                    <input type="text" id="lastname" name="lastname" class="form-control form-control-sm" placeholder="Last name">
                   </div>
   
   
                 </div>
                 <div class="d-lg-flex justify-content-center align-items-center p-sm-2 mx-auto">
                     <div class="col-12 col-lg-6 ">
-                      <label for="middlename" class="control-label text-dark">Middle name</label>
-                      <input type="text" id="middlename" name="middlename" class="form-control form-control-sm">
+                      <!-- <label for="middlename" class="control-label text-dark">Middle name</label> -->
+                      <input type="text" id="middlename" name="middlename" class="form-control form-control-sm" placeholder="Middle name">
                     </div>
                     <div class="col-12 col-lg-6 ">
-                      <label for="username" class="control-label text-dark">Username</label>
-                      <input type="text" id="username" name="username" class="form-control form-control-sm">
+                      <!-- <label for="username" class="control-label text-dark">Username</label> -->
+                      <input type="text" id="username" name="username" class="form-control form-control-sm" placeholder="Username">
                     </div>
               </div>
                 <div class="d-lg-flex justify-content-center align-items-center p-sm-2 mx-auto">
                   <div class=" col-12 col-lg-6  ">
-                    <label for="password" class="control-label text-dark">Password</label>
-                    <input type="password" id="password" name="password" class="form-control form-control-sm">
+                    <!-- <label for="password" class="control-label text-dark">Password</label> -->
+                    <input type="password" id="password" name="password" class="form-control form-control-sm" placeholder="Password">
                     <small id="pass_match" data-status=''></small>
                   </div>
                   <div class=" col-12 col-lg-6 ">
-                    <label for="cpass" class="control-label text-dark">Confirm Password</label>
-                    <input type="password" id="cpass" name="cpass" class="form-control form-control-sm">
+                    <!-- <label for="cpass" class="control-label text-dark">Confirm Password</label> -->
+                    <input type="password" id="cpass" name="cpass" class="form-control form-control-sm" placeholder="Confirm Password">
                   </div>
                 </div>
                 <div class=" justify-content-center align-items-center p-sm-2 mx-auto">
                   <div class="col-12  ">
-                    <label for="email" class="control-label text-dark">Email</label>
-                    <input type="email" id="email" name="email" class="form-control form-control-sm">
+                    <!-- <label for="email" class="control-label text-dark">Email</label> -->
+                    <input type="email" id="email" name="email" class="form-control form-control-sm my-2" placeholder="Email">
                   </div>
-                  <div class=" col-12  ">
-                  <label for="user_type" class="control-label">User Role</label>
-                    <select name="user_type" id="user_type" class="custom-select custom-select-sm">
+                  <div class=" col-12 my-2  ">
+                  <!-- <label for="user_type" class="control-label">User Role</label> -->
+                    <select name="user_type" id="user_type" class=" custom-select custom-select-sm">
                       <option value="3" <?php echo isset($user_type) && $user_type == 3 ? 'selected' : '' ?>>Student</option>
                       <option value="2" <?php echo isset($user_type) && $user_type == 2 ? 'selected' : '' ?>>Registrar</option>
                       <option value="1" <?php echo isset($user_type) && $user_type == 1 ? 'selected' : '' ?>>Admin</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                      <label for="student_code" class="control-label text-dark">Student Code</label>
-                      <input type="text" id="std_code" name="student_code" class="form-control form-control-sm">
+                  <div class="form-group px-5">
+                      <!-- <label for="student_code" class="control-label text-dark">Student Code</label> -->
+                      <input type="text" id="std_code" name="student_code" class="form-control form-control-sm " placeholder="Student Code">
                   </div>
                 </div>
 
@@ -119,7 +119,7 @@ header("location:index.php?page=home");
                 </div>
             
   					</form>
-                      <a href="./login.php" class="back-to-top">Already have an account? Login</a>
+              <a href="./login.php" class="back-to-top">Already have an account? Login</a>
   				</div>
   			</div>
   		</div>

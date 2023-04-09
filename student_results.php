@@ -3,7 +3,7 @@
 <?php session_start() ?>
 <?php 
  include 'db_connect.php';
- if(!isset($_SESSION['rs_id']))
+ if(!isset($_SESSION['rs_user_id']))
       header('location:login.php');
     include 'db_connect.php';
     ob_start();
